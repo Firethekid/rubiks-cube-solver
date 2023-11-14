@@ -1,20 +1,30 @@
 import twophase.solver as sv
 import cubemodel
 import random
+import time
 
-random.seed(6)
+random.seed(9)
 rubikscube = "UUUUUUUUURRRRRRRRRFFFFFFFFFDDDDDDDDDLLLLLLLLLBBBBBBBBB"
 
 
 def cubereset():
+    """
+    Sets the rubikscube variable to initial/solved state
+    """
     global rubikscube
     rubikscube = "UUUUUUUUURRRRRRRRRFFFFFFFFFDDDDDDDDDLLLLLLLLLBBBBBBBBB"
 
 
-cubereset()
-
-
 def scramblecube(cube):
+    """
+    Returns a scrambled cube string
+
+    Parameters:
+        cube (string): string of 54 characters representing facelets
+
+    Returns:
+        cube (string): same string, but scrambled using cube conventions
+    """
 
     moves = 10 # number of moves to scramble
     
@@ -32,23 +42,14 @@ def scramblecube(cube):
 rubikscube = scramblecube(rubikscube)
 print(cubemodel.encode(rubikscube))
 
+
 print(rubikscube)
-solution = sv.solve(rubikscube)
-print(solution)
-
-
-
-"""
-cubemodel.encode(rubikscube)
-solution = sv.solve("DUUBULDBFRBFRRULLLBRDFFFBLURDBFDFDRFRULBLUFDURRBLBDUDL").split()
-solution.pop()
+solution = sv.solve(rubikscube).replace("3", "'").replace("1", "")
 print(solution)
 
 """
-
 def solvingmoves(moves):
     for x in moves:
         for i in range(int(x[1])):
             cubemodel.rubiksmoves[x[0]]
-
-#solvingmoves(solution)
+"""
